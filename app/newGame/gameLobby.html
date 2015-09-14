@@ -1,0 +1,23 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<button class="btn btn-default pull-right" ng-click="refresh()">
+			<i class="fa fa-refresh"></i>
+		</button>
+		<h4>{{gameName}}</h4>
+	</div>
+	<div class="panel-body">
+		<table>
+			<tr data-ng-repeat="player in players">
+				<td width="100%">{{player.name}}</td>
+				<td><button class="btn btn-danger glyphicon glyphicon-trash" style="margin:3px" ng-click="remove(player)" /></td>
+		</table>
+		<div>
+			<button class="btn btn-primary" style="margin-top:10px" ng-disabled="!canStart()" data-ng-click="startGame()">
+				START!
+			</button>
+			<button class="btn btn-danger" style="margin-top:10px" data-ng-click="deleteGame()">
+				Abandon
+			</button>
+		</div>
+	</div>
+</div>

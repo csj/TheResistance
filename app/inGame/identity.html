@@ -1,0 +1,19 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">You are a ...</h3>
+	</div>
+	<div class="panel-body">
+		<div ng-show="concealed">
+			<button class="btn btn-default btn-lg" style="width:100%; display:block" ng-click="reveal()">
+				TAP HERE
+			</button>
+			<i>(make sure nobody can see your device)</i>
+		</div>
+		<div ng-show="!concealed">
+			<button class="btn btn-default btn-lg" style="width:100%"ng-click="leave()">
+				{{ result }}
+			</button>
+			<i>This message will self-destruct in 5 seconds.</i>
+		</div>
+	</div>
+</div>

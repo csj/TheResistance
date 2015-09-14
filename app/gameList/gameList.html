@@ -1,0 +1,26 @@
+<form name="theform">
+	<div class="form-group">
+		<label class="control-label">Your name</label>
+		<input type="text" class="form-control" data-ng-model="playerName" required>
+	</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<button class="btn btn-default pull-right" ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+			<h4>Available games</h4>
+		</div>
+		<div class="panel-body">
+			<div data-ng-repeat="game in games" >
+				<button type="submit" class="btn" style="width:100%; margin-bottom:10px" data-ng-click="theform.$valid && join(game)">
+				{{game.name}}
+				<span class="badge">{{game.players}}</span>
+				</button>
+			</div>
+			<div>
+				<button class="btn btn-primary" style="margin-top:10px" data-ng-click="theform.$valid &&createNewGame()">Create new game</button>
+			</div>
+		</div>
+
+	</div>
+</form>

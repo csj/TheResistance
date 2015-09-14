@@ -1,0 +1,19 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Missions</h3>
+	</div>
+	<div class="panel-body">
+		<accordion close-others="true">
+			<accordion-group ng-repeat="mission in missions">
+				<accordion-heading>
+                    {{ mission.name }}
+                    <span ng-if="mission.succeeded" class="badge label-success pull-right">Succeeded</span>
+                    <span ng-if="mission.failed" class="badge label-danger pull-right">Failed</span>
+                </accordion-heading>
+                <div ng-repeat="member in mission.members">
+                	{{ member }}
+                </div>
+			</accordion-group>
+		</accordion>
+	</div>
+</div>
