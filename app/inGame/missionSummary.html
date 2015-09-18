@@ -7,8 +7,8 @@
 			<accordion-group ng-repeat="mission in missions">
 				<accordion-heading>
                     {{ mission.name }}
-                    <span ng-if="mission.succeeded" class="badge label-success pull-right">Succeeded</span>
-                    <span ng-if="mission.failed" class="badge label-danger pull-right">Failed</span>
+                    <span ng-if="mission.succeeded" class="badge pull-right">Succeeded</span>
+                    <span ng-if="mission.failed" class="badge pull-right">Failed</span>
                 </accordion-heading>
                 <div ng-repeat="member in mission.members">
                 	{{ member }}

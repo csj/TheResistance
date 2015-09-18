@@ -12,7 +12,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
     $scope.$parent.inGame = true;
 
-
     $scope.update = function() {
         if (gameState.href) {
             $location.path(gameState.href);

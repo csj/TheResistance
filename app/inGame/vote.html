@@ -1,0 +1,33 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Vote for nominated team</h3>
+	</div>
+	<div class="panel-body">
+		<div>
+			<label class="form-label">Mission: </label>
+			{{ missionName }}
+		</div>
+		<div>
+			<label class="form-label">Chosen by: </label>
+			<span class="label label-default" style="margin-right:3px">
+				{{ proposedBy }}
+			</span>
+		</div>
+		<div>
+			<label class="form-label">Members: </label>
+			<span ng-repeat="member in proposedMembers" class="label label-default" style="margin-right:3px">
+				{{ member }}
+			</span>
+		</div>
+		<div align="center" style="margin-top: 35px">
+			<button type="button" class="btn btn-primary btn-lg" style="margin-right: 50px" ng-click="vote(true)">
+				<span class="glyphicon glyphicon-thumbs-up"></span>
+				Yes
+			</button>
+			<button type="button" class="btn btn-primary btn-lg" ng-click="vote(false)">
+				<span class="glyphicon glyphicon-thumbs-down"></span>
+				No
+			</button>
+		</div>
+	</div>
+</div>
