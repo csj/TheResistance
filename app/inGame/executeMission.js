@@ -17,10 +17,10 @@ app.config(['$routeProvider', function($routeProvider) {
     $scope.missionName = mission.name;
     $scope.isBlocked = false;
     $scope.message = "Ensure that nobody can see your device.";
+    $scope.isSpy = gameState.playerIsSpy;
 
     $scope.reveal = function() {
         $scope.concealed = false;
-        $scope.isSpy = true;
         $scope.message = $scope.isSpy ?
             "The position of the buttons on-screen is randomized." :
             "You can see two Succeed buttons because you are a Resistance member.";

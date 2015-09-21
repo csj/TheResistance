@@ -6,12 +6,34 @@
 		<accordion close-others="true">
 			<accordion-group ng-repeat="mission in missions">
 				<accordion-heading>
-                    {{ mission.name }}
-                    <span ng-if="mission.succeeded" class="badge pull-right">Succeeded</span>
-                    <span ng-if="mission.failed" class="badge pull-right">Failed</span>
+                    {{ mission.name }}: Size <span class="badge">{{ mission.teamsize }}</span>
+                    <span ng-if="mission.requiresDoubleFires">
+                    	( <span class="glyphicon glyphicon-warning-sign"></span>
+                    	<span class="glyphicon glyphicon-fire"></span>
+                    	<span class="glyphicon glyphicon-fire"></span> )
+                    </span>
+                    <span ng-if="mission.succeeded || mission.failed" class="badge pull-right">
+                    	<span ng-class="mission.succeeded ? 'glyphicon-leaf' : 'glyphicon-fire'"
+                    		class="glyphicon glyphicon-leaf"></span>
+                    </span>
                 </accordion-heading>
-                <div ng-repeat="member in mission.members">
-                	{{ member }}
+                <div ng-repeat="team in mission.teams" ng-style="!$first ? {'background-color':'#ccc'} : {}" style="margin: -6px; padding: 6px;">
+                	<h4 ng-if="$index == 1" >Failed team compositions <span class="glyphicon glyphicon-thumbs-down"></span> :</h4>
+                	<h5>
+                		<div style="display:inline"  ng-repeat="member in team.members">
+                			<span class="badge">{{member}}</span>
+	                	</div>
+	                	(chosen by <span class="badge">{{team.chosenBy}}</span>)
+                	</h5>
+                	<ul>
+                		<li>
+                		<span class="glyphicon glyphicon-thumbs-up"></span> from:
+                		<div style="display:inline" ng-repeat="member in team.yesVotes">
+                			<span class="badge">{{member}}</span>
+                		</div>
+                		<span ng-if="team.yesVotes.length == 0">nobody</span>
+                		<li ng-if="$first">Mission <b>{{ mission.succeeded ? 'SUCCEEDED' : 'FAILED' }}</b>.
+                	</ul>
                 </div>
 			</accordion-group>
 		</accordion>
