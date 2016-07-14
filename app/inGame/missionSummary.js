@@ -7,7 +7,11 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }])
 
-.controller('missionSummaryCtrl', ['$scope', 'gameState', function($scope, gameState) {
+.controller('missionSummaryCtrl', ['$scope', 'apiService', function($scope, apiService) {
     $scope.$parent.inGame = true;
-    $scope.missions = gameState.missions;
+    apiService.getMissions().then(function(payload) {
+	    $scope.missions = payload.data;
+    }, function(error) {
+    	console.log(error);
+    });
 }]);

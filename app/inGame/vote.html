@@ -19,7 +19,7 @@
 				{{ member }}
 			</span>
 		</div>
-		<div align="center" style="margin-top: 35px">
+		<div ng-show="needsVote" align="center" style="margin-top: 35px">
 			<button type="button" class="btn btn-primary btn-lg" style="margin-right: 50px" ng-click="vote(true)">
 				<span class="glyphicon glyphicon-thumbs-up"></span>
 				Yes
@@ -28,6 +28,13 @@
 				<span class="glyphicon glyphicon-thumbs-down"></span>
 				No
 			</button>
+		</div>
+		<div ng-hide="needsVote">
+			<div>Thank you for voting! Still waiting for others ...</div>
+			<button type="button" class="btn btn-primary btn-lg"
+			ng-click="leave()">
+			Back
+			</button
 		</div>
 	</div>
 </div>

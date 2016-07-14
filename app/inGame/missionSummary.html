@@ -18,21 +18,24 @@
                     </span>
                 </accordion-heading>
                 <div ng-repeat="team in mission.teams" ng-style="!$first ? {'background-color':'#ccc'} : {}" style="margin: -6px; padding: 6px;">
-                	<h4 ng-if="$index == 1" >Failed team compositions <span class="glyphicon glyphicon-thumbs-down"></span> :</h4>
+                    <h4 ng-if="team.accepted">Accepted team <span class="glyphicon glyphicon-thumbs-up"></span> :</h4>
+                	<h4 ng-if="$index == 1" >Rejected teams <span class="glyphicon glyphicon-thumbs-down"></span> :</h4>
                 	<h5>
                 		<div style="display:inline"  ng-repeat="member in team.members">
-                			<span class="badge">{{member}}</span>
+                			<span class="badge">{{member.name}} <span ng-if="team.accepted" class="glyphicon" ng-class="{ 'glyphicon-thumbs-up' : member.vote, 'glyphicon-thumbs-down': !member.vote }"></span></span>
 	                	</div>
-	                	(chosen by <span class="badge">{{team.chosenBy}}</span>)
                 	</h5>
                 	<ul>
-                		<li>
-                		<span class="glyphicon glyphicon-thumbs-up"></span> from:
-                		<div style="display:inline" ng-repeat="member in team.yesVotes">
-                			<span class="badge">{{member}}</span>
-                		</div>
-                		<span ng-if="team.yesVotes.length == 0">nobody</span>
-                		<li ng-if="$first">Mission <b>{{ mission.succeeded ? 'SUCCEEDED' : 'FAILED' }}</b>.
+                        <li>
+                            chosen by <span class="badge">{{team.chosenBy}}</span>
+                		<li ng-if="team.accepted">
+                		    Not on team:
+                            <div ng-if="team.accepted" style="display:inline"  ng-repeat="member in team.notParticipating">
+                                <span class="badge">{{member.name}} <span class="glyphicon" ng-class="{ 'glyphicon-thumbs-up' : member.vote, 'glyphicon-thumbs-down': !member.vote }"></span></span>
+                            </div>
+                        </li>
+                		<li ng-if="$first && 
+                        (mission.succeeded || mission.failed)">Mission <b>{{ mission.succeeded ? 'SUCCEEDED' : 'FAILED' }}</b>.
                 	</ul>
                 </div>
 			</accordion-group>

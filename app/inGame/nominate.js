@@ -7,20 +7,29 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }])
 
-.controller('nominateCtrl', ['$scope', 'gameState', '$location', '$timeout', 
-	function($scope, gameState, $location, $timeout) {
-    $scope.$parent.inGame = true;
+.controller('nominateCtrl', ['$scope', 'apiService', '$location', '$timeout', 
+	function($scope, apiService, $location, $timeout) {
+    $scope.gameData.inGame = true;
 
-    $scope.teamSize = 2;
-    $scope.missionName = "Mission 3";
-    $scope.players = _.map(gameState.players, function (p) { return {name: p, selected: false}});
-
+    apiService.getCurrentMissionWithPlayers($scope.gameData.playerName).then(function (payload) {
+        var mission = payload.data;
+        $scope.teamSize = mission.teamsize;
+        $scope.missionName = mission.name;
+        $scope.players = _.map(mission.players, p => { return {name: p, selected: false }});
+    });
+    
     $scope.canNominate = function() {
-        return _.filter($scope.players, function(p) { return p.selected }).length == $scope.teamSize;
+        return _.filter($scope.players, p => p.selected).length == $scope.teamSize;
     }
 
     $scope.nominate = function() {
         if (!$scope.canNominate()) return;
-        $location.path("/main");
+        var names = _.chain($scope.players)
+            .filter(p => p.selected)
+            .map(p => p.name)
+            .value();
+        apiService.doNominate($scope.gameData.playerName, names).then(() => {
+            $location.path("/main");    
+        });
     }
 }]);

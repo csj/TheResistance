@@ -7,18 +7,28 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }])
 
-.controller('mainCtrl', ['$scope', 'gameState', '$location', '$timeout', 
-	function($scope, gameState, $location, $timeout) {
+.controller('mainCtrl', ['$scope', 'apiService', '$location', '$timeout', 
+	function($scope, apiService, $location, $timeout) {
 
-    $scope.$parent.inGame = true;
+    $scope.gameData.inGame = true;
+    $scope.socket.on('alert', msg => {
+        $scope.update();
+    });
 
-    $scope.update = function() {
-        if (gameState.href) {
-            $location.path(gameState.href);
-        }
-        $scope.status = gameState.currentDescription;
-        $timeout($scope.update, 5000);
+    $scope.continuousTimer = function() {
+        $scope.update();
+        if ($location.path() == "/main") $timeout($scope.continuousTimer, 5000);
     }
 
-    $scope.update();
+    $scope.update = function() {
+        apiService.getStatus($scope.gameData.playerName).then(function(payload) {
+            var status = payload.data;
+            if (status.href) {
+                $location.path(status.href);
+            }
+            $scope.status = status.message;
+        });
+    }
+
+    $scope.continuousTimer();
 }]);

@@ -7,6 +7,17 @@ var app = angular.module('the-resistance', ['ngRoute', 'ui.bootstrap', 'ui.boots
 	}]
 )
 
-.controller('indexCtrl', ['$scope', function($scope) {
-	$scope.inGame = false;
+.controller('indexCtrl', ['$scope', '$location', function($scope, $location) {
+    $scope.socket = io();
+    $scope.socket.on('alert', msg => {
+    	alert(msg);
+    	if ($location.path() != "/main") {
+    		$location.path("/main");
+    	}
+    });
+
+	$scope.gameData = {
+		inGame: false,
+		playerName: "csj"	
+	}; 
 }]);

@@ -7,15 +7,23 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }])
 
-.controller('voteCtrl', ['$scope', 'gameState', '$location', function($scope, gameState, $location) {
-    $scope.$parent.inGame = true;
-    var mission = gameState.missions[gameState.currentMissionIndex];
+.controller('voteCtrl', ['$scope', 'apiService', '$location', function($scope, apiService, $location) {
+    $scope.gameData.inGame = true;
+    
+    apiService.getVoting($scope.gameData.playerName).then(function (payload) {
+        var voting = payload.data;
 
-    $scope.proposedMembers = mission.members;
-    $scope.proposedBy = mission.chosenBy;
-    $scope.missionName = mission.name;
+        $scope.proposedMembers = voting.teamMembers;
+        $scope.proposedBy = voting.proposedBy;
+        $scope.missionName = voting.missionName;
+        $scope.needsVote = voting.waitingForYourVote;
+    });
 
     $scope.vote = function(hasAccepted) {
-    	$location.path("/main");
+        apiService.doVote($scope.gameData.playerName, hasAccepted).then(() => {
+    	   $location.path("/main");
+        });
     }
+
+    $scope.leave = () => $location.path("/main");
 }]);

@@ -1,4 +1,7 @@
-<div class="panel panel-primary">
+<div ng-show="loading">
+	Loading ...
+</div>
+<div ng-hide="loading" class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">You are a ...</h3>
 	</div>
@@ -12,6 +15,10 @@
 		<div ng-show="!concealed">
 			<button class="btn btn-default btn-lg" style="width:100%"ng-click="leave()">
 				{{ result }}
+				<div ng-if="isSpy">
+					Your spy buddies are:
+					<span ng-repeat="other in otherSpies" class="badge">{{other}}</span>
+				</div>
 			</button>
 			<i>This message will self-destruct in 5 seconds.</i>
 		</div>

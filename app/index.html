@@ -23,9 +23,10 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="bower_components/underscore/underscore-min.js"></script>
+  <script src="bower_components/socket.io-client/socket.io.js"></script>
 
   <script src="app.js"></script>
-  <script src="gameState/gameState.js"></script>
+  <script src="gameState/apiService.js"></script>
   <script src="gameList/gameList.js"></script>
   <script src="newGame/newGame.js"></script>
   <script src="newGame/gameLobby.js"></script>
@@ -37,11 +38,12 @@
   <script src="inGame/executeMission.js"></script>
 </head>
 <body data-ng-controller="indexCtrl">
-  <div ng-show="inGame" id="navbar" style="background: #dddddd; padding: 10px;">
+  <div ng-show="gameData.inGame" id="navbar" style="background: #dddddd; padding: 10px;">
     <a class="btn btn-default" href="#/identity">My Identity</a>
     <a class="btn btn-default" href="#/main">Main</a>
     <a class="btn btn-default" href="#/missions">Missions</a>
-  </div btn-default>
+    <input type="text" ng-model="gameData.playerName" style="width:60px">
+  </div>
   <div style="margin:20px" ng-view></div>
 
   <div style="margin:10px">The Resistance, by csj</div>
